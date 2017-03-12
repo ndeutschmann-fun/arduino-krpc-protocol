@@ -34,7 +34,7 @@ class KAPConnection(Serial):
         elif len(msg)==3:
             if msg=="K<E":
                 raise ArduinoException
-            elif msg[1]==!:
+            elif msg[1]=="!":
                 self.handle_emergency(msg)
 
     def request_controls(self,controls):
@@ -44,7 +44,7 @@ class KAPConnection(Serial):
         self.put("K>C")
         self.expect("K<C")
         self.put("K>")
-        self.put(chr(len(controls))
+        self.put(chr(len(controls)))
         self.expect("C<1")
         self.put("C>")
         l=2
@@ -56,11 +56,18 @@ class KAPConnection(Serial):
         return data
 
 
-def Control:
-    __init__(self,Name,Type,ID,control_obj):
+class Control:
+    def __init__(self,Name,Type,ID,control,command):
         self.name=Name
         self.type=Type
         self.id=ID
-        self.function=Function
-    update(self,value):
-        self.control_obj = value
+        self.control=control
+        self.command=command
+        if self.type=="bool":
+            self.data_volume=1
+        elif self.type=="int":
+            self.data_volume=2
+        elif self.type=="float":
+            self.data_volume=4
+    def update(self,value):
+        exec("self.control."+self.command+"="+str(value))
