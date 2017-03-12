@@ -31,6 +31,7 @@ The standby mode for the Arduino is ```EXPECTING```. It should be waiting for 3-
 Whenever something goes wrong on the Arduino side, it should send the message ```K<E``` and wait for a ```K>R```, then send a ```K<R``` and go to ```EXPECTING```
 
 If the Arduino receives a ```K>E```, it should send a ```K<R``` and go to ```EXPECTING```
+
 ### Server
 Whenever something goes wrong on the Server side, it should send the message ```K>E``` and wait for a ```K<R``` and go to ```EXPECTED``` mode.
 
